@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'customers-app';
+  title = 'Welcome to angular';
+  course: string = 'Course Spring 5 with Angular 7';
+  student: string = 'Cristian osorio';
 }

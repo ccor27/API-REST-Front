@@ -1,0 +1,38 @@
+<div class="card border-dark mb-3">
+  <div class="card-header">Customers</div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">List of customers</h5>
+
+   <div class="my-2 text-left">
+     <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/customer/form']">Create customer</button>
+   </div>
+
+<table class="table table-bordered table-striped">
+  <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Date</th>
+        <th>
+          Edit
+        </th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of customers">
+    <td>{{ customer.id}}</td>
+    <td>{{ customer.name}}</td>
+    <td>{{ customer.lastName}}</td>
+    <td>{{ customer.email}}</td>
+    <td>{{ customer.createAt}}</td>
+    <td>
+      <button type="button" name="button" [routerLink]="['/customer/form', customer.id]" class="btn btn-primary">Edit</button>
+    </td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+</div>
