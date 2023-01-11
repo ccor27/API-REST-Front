@@ -12,18 +12,19 @@ export class FormComponent implements OnInit {
 
   public  customer: Customer = new Customer();
   public title: string = "Create customer";
+  public errors: string[];
 
   constructor(private customerService: CustomerService,
     private router: Router,
     private activatedRoute :ActivatedRoute) { }
 
-  ngOnInit(): void
-  this.loadCustomer;
+  ngOnInit(): void{
+  this.loadCustomer();
   }
 
   loadCustomer(): void{
-    this.activatedRoute.paramMap.subscribe(params => {
-          let id = +params.get('id');
+    this.activatedRoute.params.subscribe(params => {
+          let id = params['id']
           if ( id ) {
             this.customerService.getCustomer(id).subscribe( (customer) => this.customer = customer);
           }
@@ -34,11 +35,23 @@ export class FormComponent implements OnInit {
   this.customerService.create(this.customer).subscribe(
     customer =>{
        this.router.navigate(['/customers'])
-       swal.fire('New Customer',`Customer ${customer.name} created successfuly`,'success')
+       swal('New Customer',`Customer ${customer.name} created successfuly`,'success')
+    },
+    err =>{
+      this.errors = err.error.errors as string[];
     }
   );
   }
 
-
+  update(): void{
+    this.customerService.update(this.customer)
+    .subscribe( customer => {
+      this.router.navigate(['/customers'])
+      swal('Customer updated',`Customer ${customer.name} updated successfully`,'success')
+    },
+    err =>{
+      this.errors = err.error.errors as string[];
+    }   )
+  }
 
 }
